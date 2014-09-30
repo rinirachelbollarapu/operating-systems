@@ -1,0 +1,95 @@
+[  115.411600] Disabling lock debugging due to kernel taint
+[  115.413014] socket createdthis was missing
+[  115.413829] installed new sys_xjob module
+[  115.414397] inside consume 20
+[  115.414472] before mutex lock consumer
+[  115.414551] after mutex locked consumer
+[  115.414629] mutex unlock before consumer
+[  115.414709] mutex unlocked consumer
+[  122.684274] inside syscall
+[  122.684387] got from user 1004
+[  122.684457] producer before mutex lock
+[  122.684536] after producer locked
+[  122.684610] pushed job into queue
+[  122.684710] producer trying to unlock
+[  122.684789] producer unlocked 
+[  122.685012] finished one job 0
+[  122.685085] inside consume 20
+[  122.685153] before mutex lock consumer
+[  122.685231] after mutex locked consumer
+[  122.685310] after pop in consume
+[  122.685386] mutex unlock before consumer second
+[  122.685748] mutex unlock after consumer second
+[  122.685861] waking up prod
+[  122.686065] unlocked in consumer
+[  122.686288] started processing job in consume
+[  122.686398] inside process_job
+[  122.686491] -----------job id: 1004
+[  122.687746] selected first choice
+[  122.687843] ------crashinghere
+[  122.687935] -----key 0123456789123456
+[  122.689031] inside syscall
+[  122.689155] got from user 1003
+[  122.689248] producer before mutex lock
+[  122.689350] after producer locked
+[  122.689466] pushed job into queue
+[  122.689562] producer trying to unlock
+[  122.689663] producer unlocked 
+[  122.689758] inside syscall
+[  122.689878] got from user 1002
+[  122.689971] producer before mutex lock
+[  122.690073] after producer locked
+[  122.690170] pushed job into queue
+[  122.690266] producer trying to unlock
+[  122.691156] producer unlocked 
+[  122.691253] inside syscall
+[  122.691390] got from user 1010
+[  122.691487] entered into listing jobs
+[  122.691588] listing jobs acquired lock
+[  122.691689] start line of list_jobs
+[  122.691787] may be here
+[  122.691872] entered while loop
+[  122.692836] BUG: unable to handle kernel paging request at 0804a448
+[  122.693041] IP: [<c114bab1>] strlen+0xb/0x15
+[  122.693187] *pde = 00000000 
+[  122.693324] Oops: 0000 [#1] PREEMPT SMP 
+[  122.693564] Modules linked in: sys_xjob(O) pcnet32
+[  122.693776] 
+[  122.693852] Pid: 2343, comm: consumerthread Tainted: G           O 3.2.2+ #3 VMware, Inc. VMware Virtual Platform/440BX Desktop Reference Platform
+[  122.694191] EIP: 0060:[<c114bab1>] EFLAGS: 00010246 CPU: 0
+[  122.694314] EIP is at strlen+0xb/0x15
+[  122.694428] EAX: 00000000 EBX: 00000000 ECX: ffffffff EDX: 00000075
+[  122.694576] ESI: cebc6000 EDI: 0804a448 EBP: cf0cbec4 ESP: cf0cbec0
+[  122.694722]  DS: 007b ES: 007b FS: 00d8 GS: 0000 SS: 0068
+[  122.694853] Process consumerthread (pid: 2343, ti=cf0ca000 task=ce9bb470 task.ti=cf0ca000)
+[  122.695032] Stack:
+[  122.695111]  ce5d2f68 cf0cbee0 d0af5146 d0af5f26 0804a448 d0af5f12 00000000 d0af6022
+[  122.695572]  cf0cbf90 d0af52f6 d0af6048 d0af6032 c102482c 00000001 cf0cbf04 c10275c8
+[  122.696017]  cf0cbf3d cf0cbf74 c102c776 00000046 ce990cc4 00000000 00000246 c1436273
+[  122.696483] Call Trace:
+[  122.696576]  [<d0af5146>] process_job+0x5c/0xaa [sys_xjob]
+[  122.696722]  [<d0af52f6>] consume+0x162/0x226 [sys_xjob]
+[  122.696848]  [<c102482c>] ? get_parent_ip+0xb/0x31
+[  122.696966]  [<c10275c8>] ? sub_preempt_count+0x74/0x8d
+[  122.697089]  [<c102c776>] ? vprintk+0x32d/0x39e
+[  122.697204]  [<d0af53ba>] ? consume+0x226/0x226 [sys_xjob]
+[  122.697331]  [<c102c7fc>] ? printk+0x15/0x17
+[  122.697462]  [<d0af53ba>] ? consume+0x226/0x226 [sys_xjob]
+[  122.697595]  [<d0af53c5>] consumer_init+0xb/0x1b [sys_xjob]
+[  122.697723]  [<c103ed60>] kthread+0x64/0x69
+[  122.697834]  [<c1280000>] ? e1000_probe+0x92a/0xc14
+[  122.697954]  [<c103ecfc>] ? kthread_stop+0x4b/0x4b
+[  122.698071]  [<c1285bda>] kernel_thread_helper+0x6/0xd
+[  122.698191] Code: 5d c3 55 89 e5 56 89 c6 89 d0 88 c4 ac 38 e0 74 09 84 c0 75 f7 be 01 00 00 00 89 f0 48 5e 5d c3 55 83 c9 ff 89 e5 57 89 c7 31 c0 <f2> ae f7 d1 49 5f 89 c8 5d c3 55 89 e5 57 89 c7 89 d0 31 d2 85 
+[  122.700794] EIP: [<c114bab1>] strlen+0xb/0x15 SS:ESP 0068:cf0cbec0
+[  122.701912] CR2: 000000000804a448
+[  122.705251] before strcpy
+[  122.705362] after strcpy
+[  122.705467] entered while loop
+[  122.705562] before strcpy
+[  122.705649] after strcpy
+[  122.705737] -----------in func 1003
+[  122.705835] exited listing jobs
+[  122.705929] -----before returning 1003
+[  122.706031] ----released lock by producer
+[  122.723956] ---[ end trace 4dd8753550cab4e7 ]---
